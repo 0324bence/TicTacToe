@@ -16,7 +16,7 @@
     export default defineComponent({
         name: "Menu",
         setup() {
-            console.log();
+            localStorage.clear();
         }
     });
 </script>

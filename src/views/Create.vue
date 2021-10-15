@@ -13,11 +13,12 @@
         <input type="checkbox" name="local" v-model="data.isLocal" />
         <label for="local">Lokális játék</label>
     </div>
-    <router-link class="button" to="/game/local"><span>Létrehoz</span></router-link>
+    <button class="button" @click="CreateGame"><span>Létrehoz</span></button>
 </template>
 
 <script lang="ts">
     import {computed, defineComponent, reactive, watch} from "vue";
+    import {useRouter} from "vue-router";
 
     export default defineComponent({
         name: "Create",
@@ -70,12 +71,19 @@
                 }
                 return value;
             });
+            const router = useRouter();
+
+            function CreateGame() {
+                localStorage.setItem("table_width", data.width.toString());
+                localStorage.setItem("table_height", data.height.toString());
+                router.push(link.value);
+            }
 
             return {
                 data,
                 rows,
-                link,
-                cols
+                cols,
+                CreateGame
             };
         }
     });

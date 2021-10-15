@@ -2,6 +2,7 @@ import {createRouter, createWebHashHistory, RouteRecordRaw} from "vue-router";
 import Menu from "../views/Menu.vue";
 import Create from "../views/Create.vue";
 import Join from "../views/Join.vue";
+import Game from "../views/Game.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -18,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/join",
         name: "Join",
         component: Join
+    },
+    {
+        path: "/game/:id",
+        name: "Game",
+        component: Game
     },
     {
         path: "/:catchAll(.*)",
