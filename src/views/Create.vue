@@ -4,14 +4,14 @@
         <input type="number" class="numi" name="width" min="3" :max="data.max" v-model="data.width" />
         &nbsp; X &nbsp;
         <input type="number" class="numi" name="height" min="3" :max="data.max" v-model="data.height" />
-        <div class="checki">
-            <input type="checkbox" name="local" v-model="data.isLocal" />
-            <label for="local">Lokális játék</label>
-        </div>
     </div>
     <h2 class="title2">Előnézet</h2>
     <div class="preview" :style="{'grid-template-rows': rows, 'grid-template-columns': cols}">
         <div class="tile" v-for="n in data.width * data.height" :key="n"></div>
+    </div>
+    <div class="checki">
+        <input type="checkbox" name="local" v-model="data.isLocal" />
+        <label for="local">Lokális játék</label>
     </div>
     <router-link class="button" to="/game/local"><span>Létrehoz</span></router-link>
 </template>
@@ -113,11 +113,14 @@
     }
     .checki {
         width: 100%;
+        margin-top: 2vh;
+        margin-bottom: 1vh;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 1rem;
         font-size: 1.5rem;
+        color: hsla(0, 0%, 90%, 1);
 
         input {
             transform: scale(200%);
