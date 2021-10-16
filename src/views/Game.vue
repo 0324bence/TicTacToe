@@ -1,8 +1,8 @@
 <template>
     <div class="frame">
         <div class="names">
-            <h1>{{ data.player1.name }}</h1>
-            <h1>{{ data.player1.name }}</h1>
+            <h1 id="player1" :class="data.player1.shape === activePlayer ? 'active' : ''">{{ data.player1.name }}</h1>
+            <h1 id="player2" :class="data.player2.shape === activePlayer ? 'active' : ''">{{ data.player2.name }}</h1>
         </div>
         <div class="playarea" :style="{'grid-template-columns': cols, 'aspect-ratio': `${width} / ${height}`}">
             <div class="col" :style="{'grid-template-rows': rows}" v-for="(c, indexc) in table" :key="indexc">
@@ -46,6 +46,35 @@
                             />
                         </g>
                     </svg>
+                    <svg
+                        version="1.1"
+                        id="circle"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px"
+                        y="0px"
+                        width="50px"
+                        height="50px"
+                        viewBox="0 0 100 100"
+                        enable-background="new 0 0 50 50"
+                        xml:space="preserve"
+                        v-if="r === false"
+                    >
+                        <circle
+                            fill="none"
+                            stroke="#000"
+                            stroke-width="5"
+                            stroke-mitterlimit="10"
+                            cx="50"
+                            cy="50"
+                            r="45"
+                            stroke-dasharray="360"
+                            stroke-linecap="round"
+                            transform="rotate(-90 ) translate(-100 0)"
+                        >
+                            <animate attributeName="stroke-dashoffset" values="360;0" dur="0.20s"></animate>
+                        </circle>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -64,25 +93,27 @@
         name: "Game",
         setup() {
             const route = useRoute();
-            let data = reactive({
+            const data = reactive({
                 player1: {
                     name: "Player 1",
-                    shape: false
+                    shape: true
                 },
                 player2: {
                     name: "Player 2",
-                    shape: true
+                    shape: false
                 }
             });
+            const activePlayer = ref(true);
             if (route.params.id == "local") {
                 console.log("local game");
             }
 
             function TileClick(row: number, column: number) {
                 console.log(`Row: ${row}, Column: ${column}`);
-                console.log(table.value);
-                table.value[column][row] = true;
-                console.log(table.value);
+                if (table.value[column][row] === undefined) {
+                    table.value[column][row] = activePlayer.value;
+                    activePlayer.value = !activePlayer.value;
+                }
             }
 
             const width = ref(parseInt(localStorage.getItem("table_width")!));
@@ -130,6 +161,7 @@
                 cols,
                 rows,
                 table,
+                activePlayer,
                 TileClick
             };
         }
@@ -161,6 +193,44 @@
             font-family: "Roboto", sans-serif;
             font-weight: 500;
             color: $text-color;
+            position: relative;
+            overflow: hidden;
+        }
+        #player1 {
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                opacity: 1;
+                width: 100%;
+                height: 5%;
+                background-color: $text-color;
+                transition: transform 0.2s;
+                transform: translateX(-100%);
+            }
+
+            &.active::after {
+                transform: translateX(0);
+            }
+        }
+        #player2 {
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                opacity: 1;
+                width: 100%;
+                height: 5%;
+                background-color: $text-color;
+                transition: transform 0.2s;
+                transform: translateX(100%);
+            }
+
+            &.active::after {
+                transform: translateX(0);
+            }
         }
     }
     .playarea {
@@ -189,7 +259,7 @@
                     stroke-dasharray: 430;
                     stroke-dashoffset: 800;
 
-                    animation: x 0.2s linear;
+                    animation: x 0.1s linear;
                     animation-fill-mode: forwards;
                 }
 
@@ -197,9 +267,9 @@
                     stroke-dasharray: 430;
                     stroke-dashoffset: 800;
 
-                    animation: x 0.2s linear;
+                    animation: x 0.1s linear;
                     animation-fill-mode: forwards;
-                    animation-delay: 0.25s;
+                    animation-delay: 0.15s;
                 }
 
                 @keyframes x {
