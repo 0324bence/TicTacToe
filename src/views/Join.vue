@@ -17,6 +17,7 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "@/scss/variables.scss";
     .title {
         margin: 0;
         margin-top: 2rem;
@@ -25,7 +26,7 @@
         font-size: 7rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
     }
     .info {
         margin: 0;
@@ -34,7 +35,7 @@
         font-size: 2rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
     }
     input {
         margin-bottom: 5vh;
@@ -42,8 +43,8 @@
         text-align: center;
         width: 35%;
         font-weight: 500;
-        background-color: hsl(0, 0%, 87%);
-        color: hsl(0, 0%, 24%);
+        background-color: $main-back;
+        color: $main-color;
         border: none;
         outline: none;
     }
@@ -57,8 +58,8 @@
         width: 25%;
         height: 5vh;
         border-radius: 10px;
-        background-color: hsl(0, 0%, 87%);
-        color: hsl(0, 0%, 24%);
+        background-color: $main-back;
+        color: $main-color;
         font-size: 2rem;
         font-weight: 500;
         font-family: "Roboto", sans-serif;
@@ -74,11 +75,11 @@
         }
 
         &:hover {
-            background-color: darken(hsl(0, 0%, 87%), 50%);
+            background-color: darken($main-back, 50%);
         }
 
         &:hover span {
-            color: lighten(hsl(0, 0%, 24%), 50%);
+            color: lighten($main-color, 50%);
         }
 
         &:active {

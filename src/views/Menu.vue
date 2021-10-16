@@ -22,8 +22,7 @@
 </script>
 
 <style lang="scss" scoped>
-    $offsetcolor: darken(hsl(0, 0%, 87%), 10%);
-
+    @import "@/scss/variables.scss";
     #frame {
         width: 100%;
         height: 100%;
@@ -41,7 +40,7 @@
         font-size: 7rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
     }
 
     .button {
@@ -54,8 +53,8 @@
         width: 30%;
         height: 5vh;
         border-radius: 10px;
-        background-color: hsl(0, 0%, 87%);
-        color: hsl(0, 0%, 24%);
+        background-color: $main-back;
+        color: $main-color;
         font-size: 2rem;
         font-weight: 500;
         font-family: "Roboto", sans-serif;
@@ -71,11 +70,11 @@
         }
 
         &:hover {
-            background-color: darken(hsl(0, 0%, 87%), 50%);
+            background-color: darken($main-back, 50%);
         }
 
         &:hover span {
-            color: lighten(hsl(0, 0%, 24%), 50%);
+            color: lighten($main-color, 50%);
         }
 
         &:active {

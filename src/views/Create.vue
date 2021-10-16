@@ -90,6 +90,7 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "@/scss/variables.scss";
     .title {
         margin: 0;
         margin-top: 2rem;
@@ -98,7 +99,7 @@
         font-size: 7rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
     }
     .title2 {
         margin: 0;
@@ -106,7 +107,7 @@
         font-size: 3rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
     }
     .inputfield {
         display: flex;
@@ -116,7 +117,7 @@
         row-gap: 1rem;
         font-size: 2rem;
         font-weight: 500;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
         margin-bottom: 5vh;
     }
     .checki {
@@ -128,7 +129,7 @@
         align-items: center;
         gap: 1rem;
         font-size: 1.5rem;
-        color: hsla(0, 0%, 90%, 1);
+        color: $text-color;
 
         input {
             transform: scale(200%);
@@ -139,8 +140,8 @@
         text-align: center;
         width: 25%;
         font-weight: 500;
-        background-color: hsl(0, 0%, 87%);
-        color: hsl(0, 0%, 24%);
+        background-color: $main-back;
+        color: $main-color;
         border: none;
         outline: none;
         -moz-appearance: textfield;
@@ -156,7 +157,6 @@
         display: grid;
         /* grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr; */
-        background-color: black;
         row-gap: 1px;
         column-gap: 1px;
         margin-bottom: 2vh;
@@ -164,7 +164,7 @@
         .tile {
             width: 2rem;
             height: 2rem;
-            background-color: hsl(0, 0%, 87%);
+            background-color: $main-back;
             box-sizing: border-box;
         }
     }
@@ -179,8 +179,8 @@
         width: 15%;
         height: 5vh;
         border-radius: 10px;
-        background-color: hsl(0, 0%, 87%);
-        color: hsl(0, 0%, 24%);
+        background-color: $main-back;
+        color: $main-color;
         font-size: 2rem;
         font-weight: 500;
         font-family: "Roboto", sans-serif;
@@ -196,11 +196,11 @@
         }
 
         &:hover {
-            background-color: darken(hsl(0, 0%, 87%), 50%);
+            background-color: darken($main-back, 50%);
         }
 
         &:hover span {
-            color: lighten(hsl(0, 0%, 24%), 50%);
+            color: lighten($main-color, 50%);
         }
 
         &:active {
