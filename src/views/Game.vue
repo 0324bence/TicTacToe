@@ -4,6 +4,9 @@
             <h1 id="player1" :class="data.player1.shape === activePlayer ? 'active' : ''">{{ data.player1.name }}</h1>
             <h1 id="player2" :class="data.player2.shape === activePlayer ? 'active' : ''">{{ data.player2.name }}</h1>
         </div>
+        <div class="won">
+            <h2 v-if="globalWin != null">{{ GetPlayer(globalWin).name }} nyert!</h2>
+        </div>
         <div class="playarea" :style="{'grid-template-columns': cols, 'aspect-ratio': `${width} / ${height}`}">
             <div class="col" :style="{'grid-template-rows': rows}" v-for="(c, indexc) in table" :key="indexc">
                 <div class="tile" v-for="(r, indexr) in c" :key="r" @click="TileClick(indexr, indexc)">
@@ -118,6 +121,11 @@
             const height = ref(parseInt(localStorage.getItem("table_height")!));
             const goal = ref(parseInt(localStorage.getItem("table_goal")!));
             const allowClick = ref(true);
+            const globalWin = ref<null | boolean>(null);
+
+            if (!width.value || !height.value || !goal.value) {
+                router.push("/");
+            }
 
             function TileClick(row: number, column: number) {
                 if (allowClick.value) {
@@ -227,6 +235,7 @@
                             activePlayer.value = !activePlayer.value;
                             allowClick.value = true;
                         } else {
+                            globalWin.value = activePlayer.value;
                             console.log(`${GetPlayer(activePlayer.value).name} nyert!`);
                         }
                     }
@@ -276,6 +285,7 @@
                 table.value = PlayArea();
                 activePlayer.value = !activePlayer.value;
                 allowClick.value = true;
+                globalWin.value = null;
             }
 
             return {
@@ -286,8 +296,10 @@
                 rows,
                 table,
                 activePlayer,
+                globalWin,
                 Quit,
                 Restart,
+                GetPlayer,
                 TileClick
             };
         }
@@ -306,7 +318,7 @@
     }
     .names {
         margin-top: 2vh;
-        margin-bottom: 2vh;
+        margin-bottom: 1vh;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -357,6 +369,22 @@
             &.active::after {
                 transform: translateX(0);
             }
+        }
+    }
+    .won {
+        margin-bottom: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        h2 {
+            text-align: center;
+            margin: 0;
+            font-size: 2rem;
+            font-family: "Roboto", sans-serif;
+            font-weight: 500;
+            color: $text-color;
         }
     }
     .playarea {

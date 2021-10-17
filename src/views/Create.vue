@@ -117,7 +117,7 @@
     .title {
         margin: 0;
         margin-top: 2rem;
-        margin-bottom: 10vh;
+        margin-bottom: 5vh;
         text-align: center;
         font-size: 7rem;
         font-family: "Roboto", sans-serif;
