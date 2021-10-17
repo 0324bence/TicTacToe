@@ -4,6 +4,17 @@
         <input type="number" class="numi" name="width" min="3" :max="data.max" v-model="data.width" />
         &nbsp; X &nbsp;
         <input type="number" class="numi" name="height" min="3" :max="data.max" v-model="data.height" />
+        <div class="target">
+            <label for="goal">Cél:&nbsp;</label>
+            <input
+                type="number"
+                class="numi"
+                name="goal"
+                min="3"
+                :max="data.height >= data.width ? data.height : data.width"
+                v-model="data.goal"
+            />
+        </div>
     </div>
     <h2 class="title2">Előnézet</h2>
     <div class="preview" :style="{'grid-template-rows': rows, 'grid-template-columns': cols}">
@@ -26,7 +37,8 @@
             const data = reactive({
                 height: 3,
                 width: 3,
-                isLocal: false,
+                goal: 3,
+                isLocal: true,
                 max: 12
             });
 
@@ -44,6 +56,16 @@
                 width => {
                     if (width > data.max) {
                         data.width = data.max;
+                    }
+                }
+            );
+
+            watch(
+                () => data.goal,
+                goal => {
+                    const max = data.height >= data.width ? data.height : data.width;
+                    if (goal > max) {
+                        data.goal = max;
                     }
                 }
             );
@@ -76,6 +98,7 @@
             function CreateGame() {
                 localStorage.setItem("table_width", data.width.toString());
                 localStorage.setItem("table_height", data.height.toString());
+                localStorage.setItem("table_goal", data.goal.toString());
                 router.push(link.value);
             }
 
@@ -151,6 +174,10 @@
             -webkit-appearance: none;
             margin: 0;
         }
+    }
+
+    .target input {
+        width: 30%;
     }
 
     .preview {

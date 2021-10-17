@@ -79,20 +79,21 @@
             </div>
         </div>
         <div class="buttons">
-            <button><span>Kilépés</span></button>
-            <button><span>Újrakezdés</span></button>
+            <button @click="Quit"><span>Kilépés</span></button>
+            <button @click="Restart"><span>Újrakezdés</span></button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
     import {computed, defineComponent, reactive, ref} from "vue";
-    import {useRoute} from "vue-router";
+    import {useRoute, useRouter} from "vue-router";
 
     export default defineComponent({
         name: "Game",
         setup() {
             const route = useRoute();
+            const router = useRouter();
             const data = reactive({
                 player1: {
                     name: "Player 1",
@@ -104,20 +105,117 @@
                 }
             });
             const activePlayer = ref(true);
+
+            function GetPlayer(shape: boolean) {
+                return shape === true ? data.player1 : data.player2;
+            }
+
             if (route.params.id == "local") {
                 console.log("local game");
             }
 
-            function TileClick(row: number, column: number) {
-                console.log(`Row: ${row}, Column: ${column}`);
-                if (table.value[column][row] === undefined) {
-                    table.value[column][row] = activePlayer.value;
-                    activePlayer.value = !activePlayer.value;
-                }
-            }
-
             const width = ref(parseInt(localStorage.getItem("table_width")!));
             const height = ref(parseInt(localStorage.getItem("table_height")!));
+            const goal = ref(parseInt(localStorage.getItem("table_goal")!));
+            const allowClick = ref(true);
+
+            function TileClick(row: number, column: number) {
+                if (allowClick.value) {
+                    console.log(`Row: ${row}, Column: ${column}`);
+                    if (table.value[column][row] === undefined) {
+                        allowClick.value = false;
+                        table.value[column][row] = activePlayer.value;
+
+                        const currenttable = table.value;
+                        let counter = 0;
+                        let win = false;
+
+                        if (!win) {
+                            for (let i = 0; i < height.value; i++) {
+                                if (counter < goal.value) {
+                                    if (currenttable[column][i] === activePlayer.value) {
+                                        counter++;
+                                    } else {
+                                        counter = 0;
+                                    }
+                                } else {
+                                    win = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        counter = 0;
+
+                        if (!win) {
+                            for (let i = 0; i < width.value; i++) {
+                                if (counter < goal.value) {
+                                    if (currenttable[i][row] === activePlayer.value) {
+                                        counter++;
+                                    } else {
+                                        counter = 0;
+                                    }
+                                } else {
+                                    win = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        counter = 0;
+
+                        if (!win) {
+                            let startpoint: [number, number] = [0, 0];
+                            for (let c = column, r = row; c >= 0 && r >= 0; c--, r--) {
+                                console.log(c, r);
+                                startpoint = [c, r];
+                            }
+                            for (let [c, r] = startpoint; c < width.value && r < height.value; c++, r++) {
+                                console.log(c, r, counter, goal.value);
+                                if (counter < goal.value) {
+                                    if (currenttable[c][r] === activePlayer.value) {
+                                        counter++;
+                                        console.log(counter);
+                                    } else {
+                                        counter = 0;
+                                    }
+                                } else {
+                                    win = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        counter = 0;
+
+                        if (!win) {
+                            let startpoint: [number, number] = [0, 0];
+                            for (let c = column, r = row; c < width.value && r >= 0; c++, r--) {
+                                startpoint = [c, r];
+                            }
+                            for (let [c, r] = startpoint; c >= 0 && r < height.value; c--, r++) {
+                                if (counter < goal.value) {
+                                    if (currenttable[c][r] === activePlayer.value) {
+                                        counter++;
+                                    } else {
+                                        counter = 0;
+                                    }
+                                } else {
+                                    win = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!win) {
+                            activePlayer.value = !activePlayer.value;
+                            allowClick.value = true;
+                        } else {
+                            console.log(`${GetPlayer(activePlayer.value).name} nyert!`);
+                        }
+                    }
+                }
+            }
 
             const rows = computed(() => {
                 let value = "";
@@ -154,6 +252,16 @@
 
             const table = ref(PlayArea());
 
+            function Quit() {
+                router.push("/");
+            }
+
+            function Restart() {
+                table.value = PlayArea();
+                activePlayer.value = !activePlayer.value;
+                allowClick.value = true;
+            }
+
             return {
                 data,
                 width,
@@ -162,6 +270,8 @@
                 rows,
                 table,
                 activePlayer,
+                Quit,
+                Restart,
                 TileClick
             };
         }
