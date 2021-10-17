@@ -135,6 +135,10 @@
                                 if (counter < goal.value) {
                                     if (currenttable[column][i] === activePlayer.value) {
                                         counter++;
+                                        if (counter >= goal.value) {
+                                            win = true;
+                                            break;
+                                        }
                                     } else {
                                         counter = 0;
                                     }
@@ -152,6 +156,10 @@
                                 if (counter < goal.value) {
                                     if (currenttable[i][row] === activePlayer.value) {
                                         counter++;
+                                        if (counter >= goal.value) {
+                                            win = true;
+                                            break;
+                                        }
                                     } else {
                                         counter = 0;
                                     }
@@ -176,6 +184,10 @@
                                     if (currenttable[c][r] === activePlayer.value) {
                                         counter++;
                                         console.log(counter);
+                                        if (counter >= goal.value) {
+                                            win = true;
+                                            break;
+                                        }
                                     } else {
                                         counter = 0;
                                     }
@@ -197,6 +209,10 @@
                                 if (counter < goal.value) {
                                     if (currenttable[c][r] === activePlayer.value) {
                                         counter++;
+                                        if (counter >= goal.value) {
+                                            win = true;
+                                            break;
+                                        }
                                     } else {
                                         counter = 0;
                                     }
