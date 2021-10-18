@@ -345,7 +345,7 @@
                 height: 5%;
                 background-color: $text-color;
                 transition: transform 0.2s;
-                transform: translateX(-100%);
+                transform: translateX(-105%);
             }
 
             &.active::after {
@@ -363,7 +363,7 @@
                 height: 5%;
                 background-color: $text-color;
                 transition: transform 0.2s;
-                transform: translateX(100%);
+                transform: translateX(105%);
             }
 
             &.active::after {
@@ -480,6 +480,36 @@
             &:active {
                 transform: translateY(3px);
             }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .frame {
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        .names {
+            box-sizing: border-box;
+            padding: 0.5rem;
+            margin-bottom: 3vh;
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .buttons {
+            flex-direction: column;
+            gap: 3vh;
+
+            button {
+                width: 60%;
+            }
+        }
+
+        .won {
+            margin-bottom: 3vh;
         }
     }
 </style>

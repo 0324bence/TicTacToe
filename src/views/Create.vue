@@ -116,7 +116,7 @@
     @import "@/scss/variables.scss";
     .title {
         margin: 0;
-        margin-top: 2rem;
+        margin-top: 2vh;
         margin-bottom: 5vh;
         text-align: center;
         font-size: 7rem;
@@ -127,10 +127,11 @@
     .title2 {
         margin: 0;
         text-align: center;
-        font-size: 3rem;
+        font-size: 2rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
         color: $text-color;
+        margin-bottom: 2vh;
     }
     .inputfield {
         display: flex;
@@ -176,6 +177,13 @@
         }
     }
 
+    .target {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .target input {
         width: 30%;
     }
@@ -186,11 +194,11 @@
         grid-template-rows: 1fr 1fr 1fr; */
         row-gap: 1px;
         column-gap: 1px;
-        margin-bottom: 2vh;
+        margin-bottom: 5vh;
 
         .tile {
-            width: 2rem;
-            height: 2rem;
+            width: 20px;
+            height: 20px;
             background-color: $main-back;
             box-sizing: border-box;
         }
@@ -232,6 +240,30 @@
 
         &:active {
             transform: translateY(3px);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .title {
+            font-size: 4rem;
+            margin-bottom: 2vh;
+        }
+
+        .title2 {
+            font-size: 2.25rem;
+        }
+
+        .inputfield {
+            margin-bottom: 2vh;
+        }
+
+        .preview {
+            margin-bottom: 2vh;
+        }
+
+        .button {
+            width: 65%;
+            height: 6vh;
         }
     }
 </style>

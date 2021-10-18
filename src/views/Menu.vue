@@ -35,9 +35,9 @@
 
     .title {
         margin: 0;
-        margin-top: 2rem;
+        margin-top: 2vh;
         text-align: center;
-        font-size: 7rem;
+        font-size: 8rem;
         font-family: "Roboto", sans-serif;
         font-weight: 500;
         color: $text-color;
@@ -79,6 +79,19 @@
 
         &:active {
             transform: translateY(3px);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        #frame {
+            gap: 10vh;
+        }
+        .button {
+            width: 65%;
+            height: 6vh;
+        }
+        .title {
+            font-size: 6rem;
         }
     }
 </style>

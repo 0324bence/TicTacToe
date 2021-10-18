@@ -20,7 +20,7 @@
     @import "@/scss/variables.scss";
     .title {
         margin: 0;
-        margin-top: 2rem;
+        margin-top: 2vh;
         margin-bottom: 1vh;
         text-align: center;
         font-size: 7rem;
@@ -84,6 +84,26 @@
 
         &:active {
             transform: translateY(3px);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .title {
+            margin-top: 4vh;
+            font-size: 4.25rem;
+        }
+        .info {
+            font-size: 1.25rem;
+            margin-bottom: 10vh;
+        }
+        input {
+            width: 65%;
+            margin-bottom: 10vh;
+        }
+
+        button {
+            width: 55%;
+            height: 6vh;
         }
     }
 </style>

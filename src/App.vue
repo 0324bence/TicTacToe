@@ -16,7 +16,9 @@
     #app {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
+        width: 100vw;
+        height: 100vh;
     }
 </style>
